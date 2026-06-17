@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gerador de Tarefas — STOR Sistemas</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="page">
+
+  <div class="page-header">
+    <h1>Gerador de tarefa</h1>
+    <p>Preencha as seções, clique em <strong>Copiar JSON</strong>, cole no Claude e peça para gerar a tarefa.</p>
+  </div>
+
+  <!-- Toggles de seção -->
+  <div class="tog-wrap" id="section-toggles">
+    <span>Seções:</span>
+    <button class="tog active" data-sec="identificacao">Identificação</button>
+    <button class="tog active" data-sec="intro">Introdução</button>
+    <button class="tog active" data-sec="passos">Passo a passo</button>
+    <button class="tog active" data-sec="registro">Registro específico</button>
+    <button class="tog active" data-sec="relatorio">Relatório</button>
+    <button class="tog active" data-sec="nas">Banco / NAS</button>
+    <button class="tog active" data-sec="adicional">Inf. adicionais</button>
+  </div>
+
+  <!-- Identificação -->
+  <div class="section-card" id="sec-identificacao">
+    <div class="section-header" onclick="toggleSection('identificacao')">
+      <span class="icon">&#128100;</span>
+      <span class="section-title">Identificação do cliente</span>
+      <span class="badge" id="badge-identificacao">ativo</span>
+    </div>
+    <div class="section-body" id="body-identificacao">
+      <div>
+        <label>Cliente (código – nome) <span class="req">*</span></label>
+        <input type="text" id="cliente" placeholder="Ex: 2509 – SUPER VIDROS" />
+      </div>
+      <div class="row">
+        <div>
+          <label>Versão no cliente</label>
+          <input type="text" id="versao_cliente" placeholder="Ex: 04.09.02.00" maxlength="11" />
+        </div>
+        <div>
+          <label>Versão testada <span class="req">*</span></label>
+          <input type="text" id="versao_testada" placeholder="Ex: 04.10.00.00" maxlength="11" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Introdução -->
+  <div class="section-card" id="sec-intro">
+    <div class="section-header" onclick="toggleSection('intro')">
+      <span class="icon">&#128196;</span>
+      <span class="section-title">Introdução</span>
+      <span class="badge" id="badge-intro">ativo</span>
+    </div>
+    <div class="section-body" id="body-intro">
+      <div>
+        <label>Descrição da solicitação / problema</label>
+        <textarea id="intro" placeholder="Ex: Solicitação de melhoria no módulo de contas a pagar..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- Passo a passo -->
+  <div class="section-card" id="sec-passos">
+    <div class="section-header" onclick="toggleSection('passos')">
+      <span class="icon">&#128221;</span>
+      <span class="section-title">Passo a passo</span>
+      <span class="badge" id="badge-passos">ativo</span>
+    </div>
+    <div class="section-body" id="body-passos">
+      <div class="steps-list" id="steps-list"></div>
+      <button class="add-btn" onclick="addStep()">+ Adicionar passo</button>
+    </div>
+  </div>
+
+  <!-- Registro específico -->
+  <div class="section-card" id="sec-registro">
+    <div class="section-header" onclick="toggleSection('registro')">
+      <span class="icon">&#9888;</span>
+      <span class="section-title">Erro em registro específico</span>
+      <span class="badge" id="badge-registro">ativo</span>
+    </div>
+    <div class="section-body" id="body-registro">
+      <div class="row">
+        <div>
+          <label>Data</label>
+          <input type="text" id="reg_data" placeholder="Ex: 16/08/2024" />
+        </div>
+        <div>
+          <label>Número do registro</label>
+          <input type="text" id="reg_numero" placeholder="Ex: Venda 1043" />
+        </div>
+      </div>
+      <div class="row">
+        <div>
+          <label>Entidade</label>
+          <input type="text" id="reg_entidade" placeholder="Ex: Fornecedor XYZ" />
+        </div>
+        <div>
+          <label>Código da entidade</label>
+          <input type="text" id="reg_cod" placeholder="Ex: 00125" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Relatório -->
+  <div class="section-card" id="sec-relatorio">
+    <div class="section-header" onclick="toggleSection('relatorio')">
+      <span class="icon">&#128202;</span>
+      <span class="section-title">Correção de relatório</span>
+      <span class="badge" id="badge-relatorio">ativo</span>
+    </div>
+    <div class="section-body" id="body-relatorio">
+      <div>
+        <label>Caminho e código do relatório</label>
+        <input type="text" id="rel_caminho" placeholder="Ex: Menu Relatórios → Vendas → 55 - RESUMO DE ITENS VENDIDOS" />
+      </div>
+      <div>
+        <label>Filtros utilizados</label>
+        <textarea id="rel_filtros" placeholder="Ex: Período 01/08/2024 a 31/08/2024, Filial: 01..." style="min-height: 56px;"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAS -->
+  <div class="section-card" id="sec-nas">
+    <div class="section-header" onclick="toggleSection('nas')">
+      <span class="icon">&#128448;</span>
+      <span class="section-title">Banco de dados / NAS</span>
+      <span class="badge" id="badge-nas">ativo</span>
+    </div>
+    <div class="section-body" id="body-nas">
+      <div>
+        <label>Caminho da pasta no NAS</label>
+        <input type="text" id="nas_pasta" placeholder="Ex: STOR (Y:) > CLIENTES > STOR > 2318 - BELLA PADOCCA" />
+      </div>
+      <div class="row">
+        <div>
+          <label>Nome da subpasta</label>
+          <input type="text" id="nas_subpasta" placeholder="Ex: 16082024 1130 - ERRO NA BAIXA" />
+        </div>
+        <div>
+          <label>Arquivo de banco</label>
+          <input type="text" id="nas_arquivo" placeholder="Ex: STOR.FDB" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Informações adicionais -->
+  <div class="section-card" id="sec-adicional">
+    <div class="section-header" onclick="toggleSection('adicional')">
+      <span class="icon">&#8505;</span>
+      <span class="section-title">Informações adicionais</span>
+      <span class="badge" id="badge-adicional">ativo</span>
+    </div>
+    <div class="section-body" id="body-adicional">
+      <div>
+        <label>Observações complementares</label>
+        <textarea id="adicional" placeholder="Qualquer informação extra relevante para a resolução..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- Botão -->
+  <button class="generate-btn" id="generate-btn" onclick="copiarJSON()">
+    &#128203; Copiar JSON para a IA
+  </button>
+  <div class="status" id="status"></div>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
