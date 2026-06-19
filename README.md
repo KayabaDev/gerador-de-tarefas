@@ -10,7 +10,7 @@ Ferramenta web para padronizar e agilizar a abertura de tarefas de suporte técn
 Preencher campos → Copiar JSON → Colar no Claude → Tarefa pronta
 ```
 
-1. Abra o `index.html` no navegador
+1. Abra o https://kayabadev.github.io/gerador-de-tarefas/
 2. Preencha as seções aplicáveis à tarefa
 3. Clique em **Copiar JSON para a IA**
 4. Cole o JSON no Claude junto com o arquivo `instrucoes-tarefa-stor.md`
@@ -59,16 +59,6 @@ Na seção **Banco de dados / NAS**, informe a subpasta e/ou nome do arquivo. O 
 ## Uso local
 
 Não requer instalação, servidor ou dependências externas.
-
-```bash
-# Clone o repositório
-git clone https://github.com/seu-usuario/gerador-tarefas-stor.git
-
-# Abra direto no navegador
-start index.html       # Windows
-open index.html        # macOS
-xdg-open index.html   # Linux
-```
 
 ---
 
