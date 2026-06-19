@@ -27,6 +27,7 @@
     <button class="tog active" data-sec="adicional">Inf. adicionais</button>
   </div>
 
+  
   <!-- Identificação -->
   <div class="section-card" id="sec-identificacao">
     <div class="section-header" onclick="toggleSection('identificacao')">
@@ -138,23 +139,28 @@
       <span class="badge" id="badge-nas">ativo</span>
     </div>
     <div class="section-body" id="body-nas">
-      <div>
-        <label>Caminho da pasta no NAS</label>
-        <input type="text" id="nas_pasta" placeholder="Ex: STOR (Y:) > CLIENTES > STOR > 2318 - BELLA PADOCCA" />
+      <div class="nas-hint">
+        O cliente é puxado automaticamente do campo de identificação.
       </div>
       <div class="row">
         <div>
           <label>Nome da subpasta</label>
-          <input type="text" id="nas_subpasta" placeholder="Ex: 16082024 1130 - ERRO NA BAIXA" />
+          <input type="text" id="nas_subpasta" placeholder="Ex: Contabilidade" />
         </div>
         <div>
-          <label>Arquivo de banco</label>
-          <input type="text" id="nas_arquivo" placeholder="Ex: STOR.FDB" />
+          <label>Nome do arquivo (opcional)</label>
+          <input type="text" id="nas_arquivo" placeholder="Ex: BKP 18062026 1149.rar" />
         </div>
+      </div>
+      <button type="button" class="nas-gerar-btn" onclick="gerarCaminhoNas()">
+        &#128279; Gerar caminho
+      </button>
+      <div class="nas-preview" id="nas-preview" style="display:none">
+        <label>Caminho gerado</label>
+        <div class="nas-path" id="nas-path"></div>
       </div>
     </div>
   </div>
-
   <!-- Informações adicionais -->
   <div class="section-card" id="sec-adicional">
     <div class="section-header" onclick="toggleSection('adicional')">

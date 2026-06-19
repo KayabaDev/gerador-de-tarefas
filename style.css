@@ -226,7 +226,6 @@ textarea {
   grid-template-columns: 1fr 1fr;
   gap: 10px;
 }
-
 /* ── Passos ───────────────────────────────────── */
 .steps-list {
   display: flex;
@@ -432,4 +431,52 @@ textarea {
   .copy-btn {
     justify-content: center;
   }
+}
+
+
+/* ── NAS ──────────────────────────────────────── */
+.nas-hint {
+  font-size: 12px;
+  color: var(--color-text-tertiary);
+  padding: 6px 10px;
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-md);
+}
+
+.nas-gerar-btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-family: var(--font-sans);
+  padding: 7px 14px;
+  border: 0.5px solid var(--color-border-md);
+  border-radius: var(--radius-md);
+  background: var(--color-bg);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.nas-gerar-btn:hover {
+  background: var(--color-bg-secondary);
+}
+
+.nas-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.nas-path {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--color-text-primary);
+  background: var(--color-bg-secondary);
+  border: 0.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  word-break: break-all;
+  line-height: 1.5;
 }

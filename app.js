@@ -1,3 +1,27 @@
+/* ── Gerador de caminho NAS ───────────────────── */
+function gerarCaminhoNas() {
+  const BASE = '\\\\192.168.15.101\\NasFtp\\CLIENTES\\STOR\\';
+
+  const cliente   = v('cliente');
+  const subpasta  = v('nas_subpasta');
+  const arquivo   = v('nas_arquivo');
+
+  if (!cliente) {
+    setStatus('Preencha o campo "Cliente" na seção de identificação primeiro.', 'erro');
+    return;
+  }
+
+  let caminho = BASE + cliente;
+  if (subpasta) caminho += '\\' + subpasta;
+  if (arquivo)  caminho += '\\' + arquivo;
+
+  document.getElementById('nas-path').textContent = caminho;
+  document.getElementById('nas-preview').style.display = 'flex';
+  setStatus('');
+}
+
+
+
 /* ── Estado das seções ────────────────────────── */
 const SECTIONS = ['identificacao', 'intro', 'passos', 'registro', 'relatorio', 'nas', 'adicional'];
 const sectionState = {};
@@ -156,14 +180,9 @@ function collectJSON() {
   }
 
   if (sectionState['nas']) {
-    const pasta = v('nas_pasta');
-    const sub   = v('nas_subpasta');
-    const arq   = v('nas_arquivo');
-    if (pasta || sub || arq) {
-      data.banco_nas = {};
-      if (pasta) data.banco_nas.caminho  = pasta;
-      if (sub)   data.banco_nas.subpasta = sub;
-      if (arq)   data.banco_nas.arquivo  = arq;
+    const caminho = document.getElementById('nas-path')?.textContent?.trim();
+    if (caminho) {
+      data.banco_nas = { caminho };
     }
   }
 
@@ -195,12 +214,12 @@ function copiarJSON() {
 
   navigator.clipboard.writeText(json).then(() => {
     const btn = document.getElementById('generate-btn');
-    btn.innerHTML = '&#10003; JSON copiado! Cole no Claude';
+    btn.innerHTML = '&#10003; JSON copiado! Cole na sua IA';
     btn.classList.add('copiado');
-    setStatus('JSON copiado! Cole no chat do Claude e peça para gerar a tarefa.', 'ok');
+    setStatus('JSON copiado! Cole no chat da sua IA e peça para gerar a tarefa.', 'ok');
 
     setTimeout(() => {
-      btn.innerHTML = '&#128203; Copiar JSON para o Claude';
+      btn.innerHTML = '&#128203; Copiar JSON para a IA';
       btn.classList.remove('copiado');
       setStatus('');
     }, 3000);
