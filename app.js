@@ -1,3 +1,23 @@
+/* ── Tema ─────────────────────────────────────── */
+function initTheme() {
+  const saved = localStorage.getItem('theme');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const theme = saved || (prefersDark ? 'dark' : 'light');
+  applyTheme(theme);
+}
+
+function applyTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  const label = document.getElementById('theme-label');
+  if (label) label.textContent = theme === 'dark' ? '🌙 Dark' : '☀️ Light';
+  localStorage.setItem('theme', theme);
+}
+
+function toggleTheme() {
+  const current = document.documentElement.getAttribute('data-theme');
+  applyTheme(current === 'dark' ? 'light' : 'dark');
+}
+
 /* ── Gerador de caminho NAS ───────────────────── */
 function gerarCaminhoNas() {
   const BASE = '\\\\192.168.15.101\\NasFtp\\CLIENTES\\STOR\\';
@@ -31,6 +51,8 @@ let stepCount = 0;
 
 /* ── Inicialização ────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
+  initTheme();
+  document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
   document.querySelectorAll('[data-sec]').forEach(btn => {
     btn.addEventListener('click', () => toggleSection(btn.dataset.sec));
   });
@@ -127,6 +149,11 @@ function v(id) {
 /* ── Coleta e monta o objeto JSON ─────────────── */
 function collectJSON() {
   const data = {};
+
+  if (!cliente || !v('versao_cliente') || !v('versao_testada')) {
+    setStatus('Preencha os campos obrigatórios para a geração do JSON.', 'erro');
+    return;
+  }
 
   if (sectionState['identificacao']) {
     const cliente       = v('cliente');
@@ -226,4 +253,27 @@ function copiarJSON() {
   }).catch(() => {
     setStatus('Não foi possível copiar. Tente novamente.', 'erro');
   });
+}
+
+/* ── Download MD ────────────────────────────── */
+function downloadMD() {
+  const url = 'https://cold-eu-par-2.gofile.io/download/web/516f0fd2-4cf8-40d1-9cc2-dbe6a29af6aa/instrucoes-tarefa-stor.md';
+  
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'instrucoes-tarefa-stor.md';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+
+  const btn = document.getElementById('download-btn');
+  btn.innerHTML = 'Baixando';
+  btn.classList.add('Baixando');
+  setStatus('Baixando...');
+
+  setTimeout(() => {
+    btn.innerHTML = 'Baixado';
+    btn.classList.remove('Baixado');
+    setStatus('Cole junto do JSON copiado na sua IA e peça para gerar a tarefa.');
+  }, 3000);
 }

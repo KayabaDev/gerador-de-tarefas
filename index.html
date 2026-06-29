@@ -11,14 +11,18 @@
 <div class="page">
 
   <div class="page-header">
-    <h1>Gerador de tarefa</h1>
+    <div class="page-header-top">
+      <h1>Gerador de tarefa</h1>
+      <div class="theme-toggle" id="theme-toggle" title="Alternar tema">
+        <span id="theme-label">&#127769; Dark</span>
+      </div>
+    </div>
     <p>Preencha as seções, clique em <strong>Copiar JSON</strong>, cole no Claude e peça para gerar a tarefa.</p>
   </div>
 
   <!-- Toggles de seção -->
   <div class="tog-wrap" id="section-toggles">
     <span>Seções:</span>
-    <button class="tog active" data-sec="identificacao">Identificação</button>
     <button class="tog active" data-sec="intro">Introdução</button>
     <button class="tog active" data-sec="passos">Passo a passo</button>
     <button class="tog active" data-sec="registro">Registro específico</button>
@@ -27,22 +31,20 @@
     <button class="tog active" data-sec="adicional">Inf. adicionais</button>
   </div>
 
-  
   <!-- Identificação -->
   <div class="section-card" id="sec-identificacao">
-    <div class="section-header" onclick="toggleSection('identificacao')">
+    <div class="section-header-nohide">
       <span class="icon">&#128100;</span>
-      <span class="section-title">Identificação do cliente</span>
-      <span class="badge" id="badge-identificacao">ativo</span>
+      <span class="section-title">Identificação do cliente <span class="req">*</span></span>
     </div>
     <div class="section-body" id="body-identificacao">
       <div>
-        <label>Cliente (código – nome) <span class="req">*</span></label>
+        <label>Cliente (Código – Nome) <span class="req">*</span></label>
         <input type="text" id="cliente" placeholder="Ex: 2509 – SUPER VIDROS" />
       </div>
       <div class="row">
         <div>
-          <label>Versão no cliente</label>
+          <label>Versão no cliente <span class="req">*</span></label>
           <input type="text" id="versao_cliente" placeholder="Ex: 04.09.02.00" maxlength="11" />
         </div>
         <div>
@@ -161,6 +163,7 @@
       </div>
     </div>
   </div>
+
   <!-- Informações adicionais -->
   <div class="section-card" id="sec-adicional">
     <div class="section-header" onclick="toggleSection('adicional')">
@@ -176,11 +179,22 @@
     </div>
   </div>
 
-  <!-- Botão -->
-  <button class="generate-btn" id="generate-btn" onclick="copiarJSON()">
-    &#128203; Copiar JSON para a IA
-  </button>
-  <div class="status" id="status"></div>
+  <!-- Botões -->
+  <div class="section-card">
+    <div class="section-header-nohide">
+      <span class="section-title">{ } JSON</span>
+    </div>
+    <button class="generate-btn" id="generate-btn" onclick="copiarJSON()">
+      &#128203; Copiar JSON para a IA
+    </button>
+    <button class="download-btn" id="download-btn" onclick="downloadMD()">
+      Download instruções para IA
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 3v13"/><path d="M7 11l5 5 5-5"/><path d="M4 20h16"/>
+      </svg>
+    </button>
+    <div class="status" id="status"></div>
+  </div>
 
 </div>
 
