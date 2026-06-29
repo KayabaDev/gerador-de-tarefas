@@ -7,7 +7,7 @@ Ferramenta web para padronizar e agilizar a abertura de tarefas de suporte técn
 ## Como funciona
 
 ```
-Preencher campos → Copiar JSON → Colar no Claude → Tarefa pronta
+Preencher campos → Copiar JSON → Colar na IA + Instruções da Terafa → Tarefa pronta
 ```
 
 1. Abra o https://kayabadev.github.io/gerador-de-tarefas/
