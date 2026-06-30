@@ -271,7 +271,7 @@ function copiarJSON() {
 
 /* ── Download MD ────────────────────────────── */
 function downloadMD() {
-  const url = 'https://drive.usercontent.google.com/download?id=1tIxGswZptwYBz5jglIzuGAvblIrycWVN&export=download&authuser=0&confirm=t&uuid=165d0b5a-6d31-4bfd-9418-7ec9b9a63925&at=ABswASbjOud7DGKqOdiEkFvg9XW6:1782844268022';
+  const url = 'https://github.com/KayabaDev/gerador-de-tarefas/blob/main/Instru%C3%A7%C3%B5es/instrucoes-tarefa-stor.md';
   
   const a = document.createElement('a');
   a.href = url;
