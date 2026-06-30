@@ -35,6 +35,7 @@
   --font-mono: "SF Mono", "Fira Code", "Cascadia Code", monospace;
 
   --toggle-track-bg: #d1d5db;
+  --toggle-knob-bg:  #ffffff;
 }
 
 [data-theme="dark"] {
@@ -58,6 +59,7 @@
   --color-border-success: rgba(192,221,151,0.30);
 
   --toggle-track-bg: #6fa3ff;
+  --toggle-knob-bg:  #ffffff;
 }
 
 /* ── Base ─────────────────────────────────────── */
@@ -124,6 +126,21 @@ body {
   flex-shrink: 0;
 }
 
+.toggle-knob {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--toggle-knob-bg);
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  transition: transform 0.25s;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+[data-theme="dark"] .toggle-knob {
+  transform: translateX(16px);
+}
 
 /* ── Seção toggles ────────────────────────────── */
 .tog-wrap {
@@ -259,9 +276,10 @@ select:focus {
 }
 
 textarea {
-  resize: vertical;
+  resize: none;
   min-height: 72px;
   line-height: 1.5;
+  overflow-y: hidden;
 }
 
 .row {

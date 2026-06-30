@@ -18,7 +18,20 @@ function toggleTheme() {
   applyTheme(current === 'dark' ? 'light' : 'dark');
 }
 
-/* ── Gerador de caminho NAS ───────────────────── */
+/* ── Auto-resize de textarea ──────────────────── */
+function autoResize(el) {
+  el.style.height = 'auto';
+  el.style.height = el.scrollHeight + 'px';
+}
+
+function initAutoResize() {
+  document.querySelectorAll('textarea').forEach(el => {
+    autoResize(el);
+    el.addEventListener('input', () => autoResize(el));
+  });
+}
+
+
 function gerarCaminhoNas() {
   const BASE = '\\\\192.168.15.101\\NasFtp\\CLIENTES\\STOR\\';
 
@@ -52,6 +65,7 @@ let stepCount = 0;
 /* ── Inicialização ────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
   initTheme();
+  initAutoResize();
   document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
   document.querySelectorAll('[data-sec]').forEach(btn => {
     btn.addEventListener('click', () => toggleSection(btn.dataset.sec));
@@ -257,7 +271,7 @@ function copiarJSON() {
 
 /* ── Download MD ────────────────────────────── */
 function downloadMD() {
-  const url = 'https://cold-eu-par-2.gofile.io/download/web/516f0fd2-4cf8-40d1-9cc2-dbe6a29af6aa/instrucoes-tarefa-stor.md';
+  const url = 'https://drive.usercontent.google.com/download?id=1tIxGswZptwYBz5jglIzuGAvblIrycWVN&export=download&authuser=0&confirm=t&uuid=165d0b5a-6d31-4bfd-9418-7ec9b9a63925&at=ABswASbjOud7DGKqOdiEkFvg9XW6:1782844268022';
   
   const a = document.createElement('a');
   a.href = url;
@@ -265,15 +279,4 @@ function downloadMD() {
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
-
-  const btn = document.getElementById('download-btn');
-  btn.innerHTML = 'Baixando';
-  btn.classList.add('Baixando');
-  setStatus('Baixando...');
-
-  setTimeout(() => {
-    btn.innerHTML = 'Baixado';
-    btn.classList.remove('Baixado');
-    setStatus('Cole junto do JSON copiado na sua IA e peça para gerar a tarefa.');
-  }, 3000);
 }
